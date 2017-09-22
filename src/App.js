@@ -5,31 +5,24 @@ import Message from './components/Message';
 import Score from './components/Score';
 import data from './data/gameData'
 
-
-
-
 class App extends Component {
-  constructor(){
+  constructor() {
     super();
-    this.state={}
+    this.state = {}
   }
 
-  
   componentWillMount() {
     this.setState(data);
   }
- 
 
-  
   render() {
-    console.log(data);
-    console.log(this.state)
+    
     return (
       <div className="App">
         <Message></Message>
         <Score></Score>
         <h1>BattleShips</h1>
-        <GameBoard  />
+        <GameBoard shipData={this.state.shipData} gameState={this.state.gameState}/>
       </div>
     );
   }
