@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
 import GameBoard from './containers/GameBoard';
-import Message from './components/Message';
 import data from './data/gameData'
 
 class App extends Component {
@@ -29,8 +28,7 @@ class App extends Component {
         }}>BattleShips
           <i className="ship icon"></i>
         </h1>
-        <Message></Message>
-        <GameBoard shipData={this.state.shipData} gameState={this.state.gameState}/>
+        <GameBoard message={this.state.message} shipData={this.state.shipData} gameState={this.state.gameState}/>
       </div>
     );
   }

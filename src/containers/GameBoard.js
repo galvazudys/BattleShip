@@ -3,6 +3,8 @@ import StartButton from '../components/StartButton';
 import _ from 'lodash';
 import SingleCell from '../components/SIngleCell';
 import Score from '../components/Score';
+import Message from '../components/Message';
+
 
 class GameBoard extends Component {
     constructor() {
@@ -10,7 +12,8 @@ class GameBoard extends Component {
         this.state = {
             score: 0,
             hitsLEft: 17,
-            gameState: {}
+            gameState: {},
+            message:''
         }
 
     }
@@ -22,12 +25,16 @@ class GameBoard extends Component {
         let score = this.state.score;
         const tempArray = this.state.gameState
         if (this.props.shipData[row][col] !== null) {
-            score += 3;
-            hits--;
+            if(tempArray[row][col] ==null ){
+                hits--;
+                score += 3;
+            }
             this.setState({hitsLEft: hits, score: score})
             tempArray[row][col] = 'ship icon';
         } else {
-            score--;
+            if(tempArray[row][col] ==null){
+                score--;
+            }
             this.setState({score: score});
             tempArray[row][col] = 'theme icon';
 
@@ -36,10 +43,9 @@ class GameBoard extends Component {
     }
 
     componentDidMount() {
-        this.setState({gameState: this.props.gameState});
+        this.setState({gameState: this.props.gameState,message:this.props.message});
     }
     render() {
-        console.log(this.state.hitsLEft)
         const row = _.map(this.state.gameState, (item, index) => {
             const cell = _.map(item, (item, key) => {
                 if (item === null) {
@@ -66,6 +72,7 @@ class GameBoard extends Component {
         return (
             <div>
                 <Score score={this.state.score}></Score>
+                <Message message={this.state.message} ></Message>
                 <table
                     style={{
                     border: "solid 2px #555",
