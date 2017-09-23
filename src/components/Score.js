@@ -1,9 +1,17 @@
 import React from 'react';
 
-const Score = () => {
+const Score = (props) => {
     return (
-        <div>
-            <h1>Score</h1>
+        <div
+            style={{
+            textAlign: "center",
+            fontSize: "80px",
+            margin: "25px 2em",
+            padding: "25px",
+            backgroundColor: "#B26D0A",
+            border: "solid 2px #444"
+        }}>
+            <span >{props.score}</span>
         </div>
     );
 };
