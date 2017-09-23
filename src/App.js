@@ -19,10 +19,13 @@ class App extends Component {
     
     return (
       <div className="App">
+        <h1 style={{
+          fontFamily:" 'VT323', monospace",
+          padding:"1em",
+          marginTop:"2em",textAlign:"center",fontSize:"80px",backgroundColor:"#27f966"}}>BattleShips <i className="ship icon"></i></h1>
         <Message></Message>
         <Score></Score>
-        <h1>BattleShips</h1>
-        <GameBoard shipData={this.state.shipData} gameState={this.state.gameState}/>
+        <GameBoard  shipData={this.state.shipData} gameState={this.state.gameState}/>
       </div>
     );
   }

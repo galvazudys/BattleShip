@@ -1,9 +1,9 @@
 import React from 'react';
 
-const HitsDisplay = () => {
+const HitsDisplay = (props) => {
     return (
         <div>
-            <h2>Hits</h2>
+            <span>Left to hit: <span style={{backgroundColor:"#e53314",fontSize:"20px"}}>{props.hits}</span></span>
         </div>
     );
 };
