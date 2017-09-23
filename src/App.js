@@ -28,7 +28,7 @@ class App extends Component {
         }}>BattleShips
           <i className="ship icon"></i>
         </h1>
-        <GameBoard message={this.state.message} shipData={this.state.shipData} gameState={this.state.gameState}/>
+        <GameBoard emptyGame={this.state.emptyGameState} message={this.state.message} shipData={this.state.shipData} gameState={this.state.gameState}/>
       </div>
     );
   }
