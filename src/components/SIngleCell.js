@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const SingleCell = (props) => {
     const passCellCord = () => {
@@ -25,5 +26,12 @@ const SingleCell = (props) => {
 
     );
 };
+
+SingleCell.PropTypes = {
+    clickedCell: PropTypes.func.isRequired,
+    col: PropTypes.number.isRequired,
+    innerCell: PropTypes.string.isRequired,
+    row: PropTypes.number.isRequired
+}
 
 export default SingleCell;

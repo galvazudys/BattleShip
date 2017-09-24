@@ -1,7 +1,9 @@
 import React from 'react';
 import HitsDisplay from '../components/HitsDisplay';
+import PropTypes from 'prop-types';
 
 const StartButton = (props) => {
+
     const startOrResetGame = () => {
         props.startGame()
     }
@@ -32,5 +34,10 @@ const StartButton = (props) => {
         </div>
     );
 };
+
+StartButton.PropTypes = {
+    hits: PropTypes.number.isRequired,
+    startGame: PropTypes.func.isRequired
+}
 
 export default StartButton;

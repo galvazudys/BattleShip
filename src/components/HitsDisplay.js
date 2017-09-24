@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 
 const HitsDisplay = (props) => {
     return (
@@ -14,4 +16,7 @@ const HitsDisplay = (props) => {
     );
 };
 
+HitsDisplay.PropTypes = {
+    hits:PropTypes.number.isRequired
+}
 export default HitsDisplay;

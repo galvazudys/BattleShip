@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types'
 import StartButton from '../components/StartButton';
 import _ from 'lodash';
 import SingleCell from '../components/SIngleCell';
@@ -20,7 +21,8 @@ class GameBoard extends Component {
     }
 
     startOrResetGame() {
-        this.setState({score: 0, hitsLEft: 17, gameState: this.props.emptyGame, message: this.props.message});
+        const emptyGame = this.props.emptyGame;
+        this.setState({score: 0, hitsLEft: 17, gameState: emptyGame, message: ''});
     }
 
     clickedCell(row, col) {
@@ -32,6 +34,7 @@ class GameBoard extends Component {
         this.setState({gameState: this.props.gameState, message: this.props.message.text, ships: this.props.ships});
     }
     render() {
+        console.log(this.props.emptyGame)
         const row = _.map(this.state.gameState, (item, index) => {
             const cell = _.map(item, (item, key) => {
                 if (item === null) {
@@ -76,6 +79,14 @@ class GameBoard extends Component {
             </div>
         );
     }
+}
+
+GameBoard.propTypes = {
+    ships:PropTypes.object.isRequired,
+    emptyGame:PropTypes.arrayOf(PropTypes.array).isRequired,
+    message:PropTypes.object.isRequired,
+    shipData:PropTypes.arrayOf(PropTypes.array.isRequired).isRequired,
+    gameState:PropTypes.arrayOf(PropTypes.array.isRequired).isRequired,
 }
 
 export default GameBoard;

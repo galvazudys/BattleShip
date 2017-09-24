@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Message = (props) => {
 
@@ -17,5 +18,8 @@ const Message = (props) => {
         </div>
     );
 };
+Message.PropTypes = {
+    message:PropTypes.string.isRequired
+}
 
 export default Message;
