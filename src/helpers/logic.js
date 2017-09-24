@@ -17,13 +17,13 @@ const logic = {
                         }
                     }
                 }
-                gameState[row][col] = 'ship icon';
+                gameState[row][col] = 'animated flipInX ship icon';
                 state.gameBoardState = gameState;
                 score += 5;
                 totalhits -= 1;
             } else {
                 state.message = 'Oh Boy,You really like WATER';
-                gameState[row][col] = 'theme icon';
+                gameState[row][col] = 'animated flipInX theme icon';
                 state.gameBoardState = gameState;                
                 score -= 1;
             }

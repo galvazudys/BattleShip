@@ -19,7 +19,7 @@ const SingleCell = props => {
       onClick={passCellCord}>
       <i
         style={{
-          color: '#B26D0A'
+          color: '#7500FF'
         }}
         className={props.innerCell}
       />

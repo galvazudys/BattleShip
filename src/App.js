@@ -26,7 +26,7 @@ class App extends Component {
           fontSize: "80px",
           backgroundColor: "#27f966"
         }}>BattleShips
-          <i className="ship icon"></i>
+          <i className="animated bounce ship icon"></i>
         </h1>
         <GameBoard
           ships={this.state.schips}
