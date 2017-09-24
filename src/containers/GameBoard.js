@@ -6,7 +6,7 @@ import SingleCell from '../components/SIngleCell';
 import Score from '../components/Score';
 import Message from '../components/Message';
 import logic from '../helpers/logic';
-
+import * as firebase from 'firebase';
 class GameBoard extends Component {
     constructor() {
         super();
@@ -15,26 +15,40 @@ class GameBoard extends Component {
             hitsLEft: 17,
             gameState: {},
             message: '',
-            ships: {}
+            ships: {},
+            shipData: {}
         }
 
     }
 
     startOrResetGame() {
+        const database = firebase.database();
+        database
+            .ref('randomGames')
+            .on('value', (snapShot) => {
+                let newGame = (JSON.parse(snapShot.val()[Math.floor(Math.random() * 5)]))
+                this.setState({shipData: newGame});
+            });
         const emptyGame = this.props.emptyGame;
         this.setState({score: 0, hitsLEft: 17, gameState: emptyGame, message: ''});
     }
 
     clickedCell(row, col) {
-        const game = logic.playGame(col, row, this.state.score, this.state.hitsLEft, this.state.ships, this.props.shipData, this.state.gameState);
+        const game = logic.playGame(col, row, this.state.score, this.state.hitsLEft, this.state.ships, this.state.shipData, this.state.gameState);
         this.setState({gameState: game.gameBoardState, hitsLEft: game.totalHits, message: game.message, score: game.score});
     }
 
     componentDidMount() {
-        this.setState({gameState: this.props.gameState, message: this.props.message.text, ships: this.props.ships});
+        const database = firebase.database();
+        database
+            .ref('randomGames')
+            .on('value', (snapShot) => {
+                let newGame = (JSON.parse(snapShot.val()[Math.floor(Math.random() * 5)]))
+                this.setState({shipData: newGame});
+            });
+        this.setState({gameState: this.props.gameState, message: this.props.message.text, ships: this.props.ships, shipData: this.props.shipData});
     }
     render() {
-        console.log(this.props.emptyGame)
         const row = _.map(this.state.gameState, (item, index) => {
             const cell = _.map(item, (item, key) => {
                 if (item === null) {
@@ -82,11 +96,17 @@ class GameBoard extends Component {
 }
 
 GameBoard.propTypes = {
-    ships:PropTypes.object.isRequired,
-    emptyGame:PropTypes.arrayOf(PropTypes.array).isRequired,
-    message:PropTypes.object.isRequired,
-    shipData:PropTypes.arrayOf(PropTypes.array.isRequired).isRequired,
-    gameState:PropTypes.arrayOf(PropTypes.array.isRequired).isRequired,
+    ships: PropTypes.object.isRequired,
+    emptyGame: PropTypes
+        .arrayOf(PropTypes.array)
+        .isRequired,
+    message: PropTypes.object.isRequired,
+    shipData: PropTypes
+        .arrayOf(PropTypes.array.isRequired)
+        .isRequired,
+    gameState: PropTypes
+        .arrayOf(PropTypes.array.isRequired)
+        .isRequired
 }
 
 export default GameBoard;
