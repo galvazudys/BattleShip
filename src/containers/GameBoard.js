@@ -4,6 +4,7 @@ import _ from 'lodash';
 import SingleCell from '../components/SIngleCell';
 import Score from '../components/Score';
 import Message from '../components/Message';
+import logic from '../helpers/logic';
 
 class GameBoard extends Component {
     constructor() {
@@ -12,7 +13,8 @@ class GameBoard extends Component {
             score: 0,
             hitsLEft: 17,
             gameState: {},
-            message: ''
+            message: '',
+            ships: {}
         }
 
     }
@@ -22,37 +24,14 @@ class GameBoard extends Component {
     }
 
     clickedCell(row, col) {
-        let hits = this.state.hitsLEft;
-        let score = this.state.score;
-        const tempArray = this.state.gameState
-        let newMessage = ''
-        if (this.props.shipData[row][col] !== null) {
-            if (tempArray[row][col] == null) {
-                newMessage = 'Omg,Stop Shooting all Over It!!!';
-                hits--;
-                score += 3;
-            }
-            newMessage = 'This ship feels a pain....';
-            this.setState({hitsLEft: hits, score: score, message: newMessage});
-            tempArray[row][col] = 'ship icon';
-        } else {
-            if (tempArray[row][col] == null) {
-                newMessage = 'Omg,Stop Shooting all Over It!!!'
-                score--;
-            }
-            newMessage = 'Oh Boy, you really like WATER!'
-            this.setState({score: score, message: newMessage});
-            tempArray[row][col] = 'theme icon';
-
-        }
-        this.setState({gameState: tempArray, message: newMessage});
+        const game = logic.playGame(col, row, this.state.score, this.state.hitsLEft, this.state.ships, this.props.shipData, this.state.gameState);
+        this.setState({gameState: game.gameBoardState, hitsLEft: game.totalHits, message: game.message, score: game.score});
     }
 
     componentDidMount() {
-        this.setState({gameState: this.props.gameState, message: this.props.message.text});
+        this.setState({gameState: this.props.gameState, message: this.props.message.text, ships: this.props.ships});
     }
     render() {
-        console.log(this.state.message)
         const row = _.map(this.state.gameState, (item, index) => {
             const cell = _.map(item, (item, key) => {
                 if (item === null) {

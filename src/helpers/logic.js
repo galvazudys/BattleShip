@@ -1,4 +1,4 @@
-var logic = {
+const logic = {
     playGame: function (col,row,score,totalhits, ships,shipData,gameState) {
         var state = {
             message:'',
@@ -8,22 +8,22 @@ var logic = {
         }
         if (gameState[row][col] == null) {
             if (shipData[row][col] !== null) {
-                state.message = 'Hit';
+                state.message = 'This ship feels a pain....';
                 for (var key in ships) {
-                    if (key == shipData[row][col]) {
+                    if (key === shipData[row][col]) {
                         ships[key].hits--;
-                        if (ships[key].hits == 0) {
+                        if (ships[key].hits === 0) {
                             state.message = 'You destroy my ' + ships[key].name
                         }
                     }
                 }
-                gameState[row][col] = 'X';
+                gameState[row][col] = 'ship icon';
                 state.gameBoardState = gameState;
                 score += 5;
                 totalhits -= 1;
             } else {
                 state.message = 'Oh Boy,You really like WATER';
-                gameState[row][col] = 'O';
+                gameState[row][col] = 'theme icon';
                 state.gameBoardState = gameState;                
                 score -= 1;
             }
@@ -55,4 +55,4 @@ var logic = {
 
 }
 
-
+export default logic;
