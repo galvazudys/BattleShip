@@ -12,7 +12,7 @@ const Score = props => {
         backgroundColor: '#B26D0A',
         border: 'solid 2px #444'
       }}>
-      <span>{props.score}</span>
+      <span className="animated flash">{props.score}</span>
     </div>
   );
 };
