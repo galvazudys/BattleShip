@@ -9,27 +9,31 @@ const StartButton = props => {
   return (
     <div
       style={{
-        marginTop: '10px'
+        margin:"20px 0",
+        textAlign:"center"
+               
       }}
-      className="ui two bottom attached buttons">
+      >
       <div
         style={{
+          boxShadow:"inset 0 0 15px #333",          
           fontFamily: " 'VT323', monospace",
           fontSize: '20px',
           letterSpacing: '2px'
         }}
-        className="ui  green button"
+        className="ui  orange button"
         onClick={startOrResetGame}>
         Start Game
       </div>
       <div
         style={{
+          boxShadow:"inset 0 0 15px #333",
           fontFamily: " 'VT323', monospace",
           fontSize: '20px',
           letterSpacing: '2px',
           color: '#000'
         }}
-        className="ui disabled  green button">
+        className="ui   orange button">
         <HitsDisplay hits={props.hits} />
       </div>
     </div>

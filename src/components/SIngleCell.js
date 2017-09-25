@@ -5,6 +5,13 @@ const SingleCell = props => {
   const passCellCord = () => {
     props.clickedCell(props.row, props.col);
   };
+  const iconColorPurple = {
+    color: '#7500FF'
+  };
+
+  const iconRedPurple = {
+    color: '#ff0000'
+  };
   return (
     <td
       style={{
@@ -18,9 +25,13 @@ const SingleCell = props => {
       }}
       onClick={passCellCord}>
       <i
-        style={{
-          color: '#7500FF'
-        }}
+        style={
+          props.innerCell === 'animated flipInX ship icon' ? (
+            iconRedPurple
+          ) : (
+            iconColorPurple
+          )
+        }
         className={props.innerCell}
       />
     </td>

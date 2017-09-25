@@ -7,6 +7,7 @@ import Score from '../components/Score';
 import Message from '../components/Message';
 import logic from '../helpers/logic';
 import * as firebase from 'firebase';
+import ScoreBoard from '../components/ScoreBoard';
 class GameBoard extends Component {
   constructor() {
     super();
@@ -88,10 +89,11 @@ class GameBoard extends Component {
       <div>
         <Score score={this.state.score} />
         <Message message={this.state.message} />
+        <ScoreBoard score={this.state.score}/>
         <table
           style={{
             border: 'solid 2px #555',
-            backgroundColor: '#27f966',
+            backgroundColor: 'rgba(39, 249, 102,0.7)',
             margin: 'auto',
             boxShadow: '4px 6px 5px 0px rgba(50, 50, 50, 0.87)'
           }}>
