@@ -18,13 +18,14 @@ class GameBoard extends Component {
       message: '',
       ships: {},
       shipData: {},
-      timer:0,
-      minuteTime:0
+      timer: 0,
+      minuteTime: 0,
+      oldGameData:[]
     };
   }
 
-  updateTimer(time){
-    this.setState({timer:time})
+  updateTimer(time) {
+    this.setState({ timer: time });
   }
 
   startOrResetGame() {
@@ -40,16 +41,16 @@ class GameBoard extends Component {
       gameState: emptyGame,
       message: ''
     });
-    let timer=0
-    let minutes = 0
-    setInterval(()=>{
-      if(timer === 60){
+    let timer = 0;
+    let minutes = 0;
+    setInterval(() => {
+      if (timer === 60) {
         minutes++;
         timer = 0;
       }
       timer++;
-      this.setState({timer:timer,minuteTime:minutes});
-    },1000)
+      this.setState({ timer: timer, minuteTime: minutes });
+    }, 1000);
   }
 
   clickedCell(row, col) {
@@ -68,6 +69,19 @@ class GameBoard extends Component {
       message: game.message,
       score: game.score
     });
+    if (game.gameEnded) {
+      const gameData = {
+        score:this.state.score,
+        minutes:this.state.minuteTime,
+        seconds:this.state.timer
+      }
+      const gameDataArray = this.state.oldGameData;
+      gameDataArray.push(gameData);
+      localStorage.setItem(
+        'gameData',
+        JSON.stringify(gameDataArray)
+      );
+    }
   }
 
   componentDidMount() {
@@ -82,10 +96,10 @@ class GameBoard extends Component {
       ships: this.props.ships,
       shipData: this.props.shipData
     });
-
+    const gameScore = localStorage.getItem('gameData');
+    this.setState({oldGameData:JSON.parse(gameScore)});
   }
   render() {
-    console.log(this.state.timer,this.state.minuteTime)
     const row = _.map(this.state.gameState, (item, index) => {
       const cell = _.map(item, (item, key) => {
         if (item === null) {
@@ -107,7 +121,12 @@ class GameBoard extends Component {
       <div>
         <Score score={this.state.score} />
         <Message message={this.state.message} />
-        <ScoreBoard minutes={this.state.minuteTime} timer={this.state.timer} score={this.state.score}/>
+        <ScoreBoard
+          oldGame={this.state.oldGameData}
+          minutes={this.state.minuteTime}
+          timer={this.state.timer}
+          score={this.state.score}
+        />
         <table
           style={{
             border: 'solid 2px #555',

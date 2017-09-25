@@ -4,7 +4,8 @@ const logic = {
             message:'',
             gameBoardState : '',
             totalHits:0,
-            score:0
+            score:0,
+            gameEnded:false
         }
         if (gameState[row][col] == null) {
             if (shipData[row][col] !== null) {
@@ -34,6 +35,9 @@ const logic = {
         state.score = score;
         state.gameBoardState = gameState;
         this.hasGameEnded(totalhits);
+        if(totalhits === 0){
+            state.gameEnded = true
+        }
         return state;
 
     },
