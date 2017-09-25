@@ -17,8 +17,14 @@ class GameBoard extends Component {
       gameState: {},
       message: '',
       ships: {},
-      shipData: {}
+      shipData: {},
+      timer:0,
+      minuteTime:0
     };
+  }
+
+  updateTimer(time){
+    this.setState({timer:time})
   }
 
   startOrResetGame() {
@@ -34,6 +40,16 @@ class GameBoard extends Component {
       gameState: emptyGame,
       message: ''
     });
+    let timer=0
+    let minutes = 0
+    setInterval(()=>{
+      if(timer === 60){
+        minutes++;
+        timer = 0;
+      }
+      timer++;
+      this.setState({timer:timer,minuteTime:minutes});
+    },1000)
   }
 
   clickedCell(row, col) {
@@ -66,8 +82,10 @@ class GameBoard extends Component {
       ships: this.props.ships,
       shipData: this.props.shipData
     });
+
   }
   render() {
+    console.log(this.state.timer,this.state.minuteTime)
     const row = _.map(this.state.gameState, (item, index) => {
       const cell = _.map(item, (item, key) => {
         if (item === null) {
@@ -89,7 +107,7 @@ class GameBoard extends Component {
       <div>
         <Score score={this.state.score} />
         <Message message={this.state.message} />
-        <ScoreBoard score={this.state.score}/>
+        <ScoreBoard minutes={this.state.minuteTime} timer={this.state.timer} score={this.state.score}/>
         <table
           style={{
             border: 'solid 2px #555',
